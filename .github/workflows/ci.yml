@@ -131,10 +131,11 @@ jobs:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=pr
+            type=sha
       - uses: docker/build-push-action@v6
         with:
           context: .
-          push: false
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
