@@ -130,7 +130,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=ref,event=branch
+            type=ref,event=pr
       - uses: docker/build-push-action@v6
         with:
           context: .
