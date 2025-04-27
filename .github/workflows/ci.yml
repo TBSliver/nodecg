@@ -164,7 +164,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           # explicitly no tag
-          tags: ${{ env.REGISTRY_IMAGE_LOWER }}
+          tags: ${{ steps.meta.outputs.tags }}
           # disables extra unknown/unknown in ghcr.io - enable if attestations wanted
           provenance: false
           cache-from: type=gha
