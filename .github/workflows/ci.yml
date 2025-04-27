@@ -151,8 +151,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=ref,suffix=${{ matrix.suffix }},event=pr
-            type=sha,suffix=${{ matrix.suffix }}
+            type=ref,suffix=-${{ matrix.suffix }},event=pr
+            type=sha,suffix=-${{ matrix.suffix }}
 
       - uses: docker/build-push-action@v6
         with:
