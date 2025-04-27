@@ -129,6 +129,11 @@ jobs:
             suffix: linux-arm64
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Prepare
+        # needed if repository name contains uppercase chars
+        run: |
+          echo "REGISTRY_IMAGE_LOWER=${REGISTRY_IMAGE@L}" >> $GITHUB_ENV
+
       - name: Checkout Repo
         uses: actions/checkout@v4
 
@@ -146,9 +151,6 @@ jobs:
         id: meta
         with:
           images: ghcr.io/${{ github.repository }}
-          # explicitly force an empty tag
-          tags: |
-            type=raw,value=
 
       - uses: docker/build-push-action@v6
         id: build
@@ -156,7 +158,7 @@ jobs:
           context: .
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.REGISTRY_IMAGE_LOWER }}
           # disables extra unknown/unknown in ghcr.io - enable if attestations wanted
           provenance: false
           cache-from: type=gha
