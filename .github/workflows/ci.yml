@@ -17,7 +17,6 @@ permissions:
 
 env:
   REGISTRY_IMAGE: ghcr.io/${{ github.repository }}
-  NODECG_CI_ENABLE_PR_CONTAINERS: false
 
 jobs:
   lint:
@@ -139,7 +138,7 @@ jobs:
           digest-prefix: 'pr-digests'
 
   pr-dry-run-merge-manifest:
-    if: github.event_name == 'pull_request' && env.NODECG_CI_ENABLE_PR_CONTAINERS == 'true'
+    if: ${{ github.event_name == 'pull_request' && env.NODECG_CI_ENABLE_PR_CONTAINERS == 'true' }}
     needs:
       - pr-dry-run-container-build
     runs-on: ubuntu-latest
