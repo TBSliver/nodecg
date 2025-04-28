@@ -127,6 +127,9 @@ jobs:
           - ubuntu-24.04-arm
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
       - name: Build Container
         uses: ./.github/actions/build-container
         with:
@@ -140,6 +143,9 @@ jobs:
       - pr-dry-run-container-build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
       - name: Merge Meta
         uses: ./.github/actions/merge-container-meta
         with:
