@@ -58,15 +58,17 @@ runs:
 
     - name: Export digest
       shell: bash
+      id: export
       run: |
         mkdir -p ${{ runner.temp }}/digests
         digest="${{ steps.build.outputs.digest }}"
         touch "${{ runner.temp }}/digests/${digest#sha256:}"
+        echo "digest=${digest#sha256:}" >> $GITHUB_OUTPUT
 
     - name: Upload digest
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ inputs.digest-prefix }}-${{ steps.build.outputs.digest }}
+        name: ${{ inputs.digest-prefix }}-${{ steps.build.export.digest }}
         path: ${{ runner.temp }}/digests/*
         if-no-files-found: error
         retention-days: 1
