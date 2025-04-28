@@ -4,9 +4,6 @@ inputs:
   registry-image:
     description: "Image name to build for"
     required: true
-  digest:
-    description: "Digest output from Build Container stage"
-    required: true
   tags:
     description: "Tag settings for docker/metadata-action"
   digest-prefix:
