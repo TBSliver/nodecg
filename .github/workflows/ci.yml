@@ -134,11 +134,11 @@ jobs:
         uses: ./.github/actions/build-container
         with:
           registry-image: ${{ env.REGISTRY_IMAGE }}
-          push: ${{ env.NODECG_CI_ENABLE_PR_CONTAINERS == 'true' && 'true' || 'false' }}
+          push: ${{ vars.NODECG_CI_ENABLE_PR_CONTAINERS == 'true' && 'true' || 'false' }}
           digest-prefix: 'pr-digests'
 
   pr-dry-run-merge-manifest:
-    if: ${{ github.event_name == 'pull_request' && env.NODECG_CI_ENABLE_PR_CONTAINERS == 'true' }}
+    if: github.event_name == 'pull_request' && vars.NODECG_CI_ENABLE_PR_CONTAINERS == 'true'
     needs:
       - pr-dry-run-container-build
     runs-on: ubuntu-latest
