@@ -68,7 +68,7 @@ runs:
     - name: Upload digest
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ inputs.digest-prefix }}-${{ steps.build.export.digest }}
+        name: ${{ inputs.digest-prefix }}-${{ steps.export.outputs.digest }}
         path: ${{ runner.temp }}/digests/*
         if-no-files-found: error
         retention-days: 1
