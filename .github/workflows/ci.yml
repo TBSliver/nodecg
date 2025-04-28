@@ -151,6 +151,9 @@ jobs:
         with:
           registry-image: ${{ env.REGISTRY_IMAGE }}
           digest-prefix: 'pr-digests'
+          tags: |
+            type=ref,event=pr
+            type=sha
 
   release-please:
     if: github.event_name == 'push' && github.ref_name == 'main'
