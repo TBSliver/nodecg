@@ -57,6 +57,7 @@ runs:
         outputs: type=image,push-by-digest=true,name-canonical=true,push=${{ inputs.push }}
 
     - name: Export digest
+      if: inputs.push == 'true'
       shell: bash
       id: export
       run: |
@@ -66,6 +67,7 @@ runs:
         echo "digest=${digest#sha256:}" >> $GITHUB_OUTPUT
 
     - name: Upload digest
+      if: inputs.push == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.digest-prefix }}-${{ steps.export.outputs.digest }}
